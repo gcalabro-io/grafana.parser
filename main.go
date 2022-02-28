@@ -58,6 +58,8 @@ func results(metrics []string) {
 	for _, metric := range uniqueMetrics {
 		fmt.Println(metric)
 	}
+
+	fmt.Printf("\n\n")
 }
 
 // help is printing the help menu
