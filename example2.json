@@ -1,0 +1,34 @@
+{
+  "panels": [
+    {
+      "panels": [
+        {
+          "targets": [
+            {
+              "expr": "sum(rate(kong_http_status{instance=~\"$instance\"}[1m]))"
+            },
+            {
+              "expr": "histogram_quantile(0.90, sum(rate(kong_latency_bucket{type=\"request\", service =~ \"$service\",route=~\"$route\",instance=~\"$instance\"}[1m])) by (service,le))"
+            },
+            {
+              "expr": "sum(\n# map state to a numeric value\n# since grafana doesn't support value mapping yet\n  label_replace(\n    label_replace(\n      label_replace(\n       kong_upstream_target_health{upstream=~\"$upstream\"}\n       # healthy is positive number\n       , \"state_value\", \"1\", \"state\", \"healthy\"\n       # healthchecks_off is 0\n      ), \"state_value\", \"0\", \"state\", \"healthchecks_off\"\n      # unhealthy is negative number\n    ), \"state_value\", \"-1\", \"state\", \"(dns_error|unhealthy)\"\n  )\n)\nby (upstream, target, address, state, state_value) > 0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "targets": [
+        {
+          "expr": "sum(rate(kong_http_status{instance=~\"$instance\"}[1m]))"
+        },
+        {
+          "expr": "histogram_quantile(0.90, sum(rate(kong_latency_bucket{type=\"request\", service =~ \"$service\",route=~\"$route\",instance=~\"$instance\"}[1m])) by (service,le))"
+        },
+        {
+          "expr": "sum(\n# map state to a numeric value\n# since grafana doesn't support value mapping yet\n  label_replace(\n    label_replace(\n      label_replace(\n       kong_upstream_target_health{upstream=~\"$upstream\"}\n       # healthy is positive number\n       , \"state_value\", \"1\", \"state\", \"healthy\"\n       # healthchecks_off is 0\n      ), \"state_value\", \"0\", \"state\", \"healthchecks_off\"\n      # unhealthy is negative number\n    ), \"state_value\", \"-1\", \"state\", \"(dns_error|unhealthy)\"\n  )\n)\nby (upstream, target, address, state, state_value) > 0"
+        }
+      ]
+    }
+  ]
+}
