@@ -15,9 +15,6 @@ func main() {
 		usage()
 	}
 
-	var dashboard grafana.Dashboard
-	var data []byte
-
 	source := os.Args[1]
 
 	if source == "-h" {
@@ -31,11 +28,15 @@ func main() {
 
 	target := os.Args[2]
 
+	var data []byte
+
 	if source == "-p" {
 		data = util.ReadFile(target)
 	} else {
 		data = util.DownloadFile(target)
 	}
+
+	var dashboard grafana.Dashboard
 
 	json.Unmarshal(data, &dashboard)
 
