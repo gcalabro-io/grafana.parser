@@ -11,6 +11,10 @@ import (
 
 func main() {
 
+	if len(os.Args) <= 1 {
+		panic("Missing local path to dashboard yaml file.")
+	}
+
 	dashboardYaml := os.Args[1]
 
 	metrics := make([]string, 0, 20)
