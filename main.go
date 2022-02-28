@@ -3,8 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"net/http"
 	"os"
 
 	"github.com/gmcalab/parser/grafana"
@@ -36,10 +34,7 @@ func main() {
 	if source == "-p" {
 		data = util.ReadFile(target)
 	} else {
-		response, err := http.Get(target)
-		util.CheckError(err)
-		data, err = ioutil.ReadAll(response.Body)
-		util.CheckError(err)
+		data = util.DownloadFile(target)
 	}
 
 	json.Unmarshal(data, &dashboard)
@@ -59,12 +54,14 @@ func main() {
 	}
 }
 
+// help is showing the help menu
 func help() {
 	fmt.Println("-h\t help")
 	fmt.Println("-p <path>\t file path for dashboard json")
 	fmt.Println("-u <url>\t url for dashboard json")
 }
 
+// usage is showing the panic message for incorrect usage
 func usage() {
 	panic("Incorrect usage, please use -h for help")
 }
