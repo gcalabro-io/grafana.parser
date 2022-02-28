@@ -43,25 +43,33 @@ func main() {
 
 	grafana.Unpack(dashboard.Panels, &metrics)
 
+	results(metrics)
+}
+
+// results is printing out the results of the metrics
+func results(metrics []string) {
 	uniqueMetrics := util.Distinct(metrics)
 
 	fmt.Printf("\n\n------------------------\n")
 	fmt.Printf("Total Metrics Found: %d\n", len(metrics))
 	fmt.Printf("Total Unique Metrics: %d\n", len(uniqueMetrics))
 	fmt.Printf("------------------------\n\n")
+
 	for _, metric := range uniqueMetrics {
 		fmt.Println(metric)
 	}
 }
 
-// help is showing the help menu
+// help is printing the help menu
 func help() {
-	fmt.Println("-h\t help")
-	fmt.Println("-p <path>\t file path for dashboard json")
-	fmt.Println("-u <url>\t url for dashboard json")
+	fmt.Printf("\n\n-----------------------------------------------\n")
+	fmt.Println(" -h       \t help")
+	fmt.Println(" -p <path>\t file path for dashboard json")
+	fmt.Println(" -u <url> \t url for dashboard json")
+	fmt.Printf("-----------------------------------------------\n\n")
 }
 
-// usage is showing the panic message for incorrect usage
+// usage is printing the panic message for incorrect usage
 func usage() {
 	panic("Incorrect usage, please use -h for help")
 }

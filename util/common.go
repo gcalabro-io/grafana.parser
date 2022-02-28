@@ -36,7 +36,7 @@ func Distinct(values []string) []string {
 	uniqueList := make([]string, 0, 20)
 
 	for _, value := range values {
-		if _, v := keys[value]; !v {
+		if _, exists := keys[value]; !exists {
 			keys[value] = true
 			uniqueList = append(uniqueList, value)
 		}
