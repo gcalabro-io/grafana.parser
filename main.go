@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/gmcalab/parser/grafana"
-	"github.com/gmcalab/parser/util"
+	"github.com/gcalabro-io/parser/grafana"
+	"github.com/gcalabro-io/parser/util"
 )
 
 func main() {

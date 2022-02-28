@@ -1,4 +1,4 @@
-module github.com/gmcalab/parser
+module github.com/gcalabro-io/parser
 
 go 1.17
 
