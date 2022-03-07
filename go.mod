@@ -1,4 +1,4 @@
-module github.com/gcalabro-io/parser
+module github.com/gcalabro-io/grafana.parser
 
 go 1.17
 
